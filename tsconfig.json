@@ -5,6 +5,10 @@
     "lib": [
       "ES2015"
     ],
+    "types": [
+      "node",
+      "mocha"
+    ],
     "sourceMap": true,
     "outDir": "./lib",
     "rootDir": "./src",
