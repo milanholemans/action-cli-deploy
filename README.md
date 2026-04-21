@@ -20,16 +20,6 @@ Create a workflow `.yml` file in your `.github/workflows` directory. An [example
 
 Since `action-cli-login` requires sensitive pieces of information, it would be ideal to store them securely. We can achieve this in a GitHub repo by using [secrets](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets). Consult the [action-cli-login](https://github.com/pnp/action-cli-login) docs to check which information you need.
 
-### Compatibility matrix
-
-The following table lists which versions of the GitHub action are compatible with which versions of the CLI for Microsoft 365.
-
-Version | CLI for Microsoft 365 version
---- | ---
-^v3.0.0 | v6.0.0
-v2.0.2 | v5.8.0
-v1.0.0 | v2.5.0
-
 ### Inputs
 
 - `APP_FILE_PATH` : **Required** Relative path of the app in your repo.
@@ -41,6 +31,27 @@ v1.0.0 | v2.5.0
 ### Output
 
 - `APP_ID` : The id of the app that gets deployed
+
+### Permissions
+
+The following permissions are required depending on the authentication type and deployment scope:
+
+#### Application permissions
+
+| Scope              | SharePoint              | Microsoft Graph  |
+|--------------------|-------------------------|------------------|
+| Tenant app catalog | `Sites.ReadWrite.All`   | `Sites.Read.All` |
+| Site app catalog   | `Sites.FullControl.All` | -                |
+
+#### Delegated permissions
+
+| Scope              | SharePoint             | Microsoft Graph  |
+|--------------------|------------------------|------------------|
+| Tenant app catalog | `AllSites.Write`       | `Sites.Read.All` |
+| Site app catalog   | `AllSites.FullControl` | -                |
+
+> [!NOTE]
+> The Microsoft Graph permission is not required when deploying to a site collection app catalog.
 
 ### Example workflow - CLI for Microsoft 365 Deploy
 
